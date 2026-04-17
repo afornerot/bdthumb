@@ -1,0 +1,9 @@
+services:
+  bdthumb:
+    container_name: bdthumb
+    restart: unless-stopped  
+    image: reg.cadoles.com/envole/nineapache:8.2
+    ports:
+      - "8022:80"
+    volumes:
+      - .:/app/public

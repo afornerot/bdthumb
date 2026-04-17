@@ -1,0 +1,28 @@
+{
+  "title": "BD Thumb",
+  "description": "Ma collection de BD",
+  "author": "",
+  "themes": {
+    "dark": {
+      "primary_color": "#e94560",
+      "secondary_color": "#ff6b6b",
+      "background_color": "#1a1a2e",
+      "card_color": "#16213e",
+      "text_color": "#eee",
+      "shadow_color": "rgba(233,69,96,0.3)"
+    },
+    "light": {
+      "primary_color": "#dc3545",
+      "secondary_color": "#ff6b6b",
+      "background_color": "#f8f9fa",
+      "card_color": "#ffffff",
+      "text_color": "#212529",
+      "shadow_color": "rgba(0,0,0,0.15)"
+    }
+  },
+  "display": {
+    "thumb_width": 220,
+    "thumb_ratio": 1.414,
+    "grid_gap": 20
+  }
+}

@@ -1,0 +1,11 @@
+# Generated thumbnails
+thumb/
+galery/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
