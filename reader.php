@@ -68,6 +68,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<script>
+document.addEventListener('keydown', function(e) {
+    const readerMode = document.documentElement.getAttribute('data-reader');
+    const reader = document.querySelector('.reader');
+    if (!reader || readerMode !== 'horizontal') return;
+    
+    if (e.key === 'ArrowRight') {
+        reader.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
+    } else if (e.key === 'ArrowLeft') {
+        reader.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
+    }
+});
+</script>
+
 <script src="asset/js/main.js"></script>
 
 </body>

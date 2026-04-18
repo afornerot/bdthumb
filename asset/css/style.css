@@ -334,7 +334,7 @@ h2:first-of-type {
 }
 
 [data-reader="horizontal"] .reader-page img {
-    max-height: calc(100vh - 60px);
+    height: calc(100vh - 60px);
     width: auto;
 }
 
