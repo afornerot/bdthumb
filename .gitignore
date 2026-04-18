@@ -2,6 +2,9 @@
 thumb/
 galery/
 
+# Local config (overrides config.json)
+asset/local.json
+
 # IDE
 .vscode/
 .idea/

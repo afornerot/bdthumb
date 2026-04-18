@@ -7,7 +7,15 @@ $coverDirectory = 'cover';
 function get_config(): array
 {
     $configFile = file_get_contents(__DIR__ . '/asset/config.json');
-    return json_decode($configFile, true) ?? [];
+    $config = json_decode($configFile, true) ?? [];
+
+    $localFile = __DIR__ . '/asset/local.json';
+    if (file_exists($localFile)) {
+        $localConfig = json_decode(file_get_contents($localFile), true) ?? [];
+        $config = array_replace_recursive($config, $localConfig);
+    }
+
+    return $config;
 }
 
 function get_theme(string $themeName = 'dark'): array
@@ -18,7 +26,6 @@ function get_theme(string $themeName = 'dark'): array
 
 function init_mode(): array
 {
-    $mode = isset($_GET['mode']) ? $_GET['mode'] : 'home';
     $group = isset($_GET['group']) ? $_GET['group'] : '';
     $bd = isset($_GET['bd']) ? $_GET['bd'] : '';
     
@@ -28,13 +35,12 @@ function init_mode(): array
     $bd = trim($bd, '/');
     
     return [
-        'mode' => $mode,
         'group' => $group,
         'bd' => $bd
     ];
 }
 
-function init_data(string $mode, string $group = '', string $bd = ''): array
+function init_data(string $group = '', string $bd = ''): array
 {
     global $coverDirectory, $sourceDirectory, $thumbDirectory;
     $config = get_config();
@@ -42,7 +48,19 @@ function init_data(string $mode, string $group = '', string $bd = ''): array
     
     $result = ['config' => $config];
     
-    if ($mode === 'home') {
+    if ($bd && $group) {
+        $result['pages'] = get_pages($group, $bd);
+        $result['pageTitle'] = htmlspecialchars($bd);
+    } elseif ($group) {
+        if (!is_dir($coverDirectory)) {
+            mkdir($coverDirectory, 0755, true);
+        }
+        
+        createThumbnails($sourceDirectory, $thumbDirectory, $thumbWidth);
+        
+        $result['bds'] = get_bds($group);
+        $result['pageTitle'] = htmlspecialchars($group);
+    } else {
         if (!is_dir($coverDirectory)) {
             mkdir($coverDirectory, 0755, true);
         }
@@ -52,18 +70,6 @@ function init_data(string $mode, string $group = '', string $bd = ''): array
         $result['allBds'] = get_all_bds();
         $result['slides'] = get_slides();
         $result['pageTitle'] = 'BD';
-    } elseif ($mode === 'group') {
-        if (!is_dir($coverDirectory)) {
-            mkdir($coverDirectory, 0755, true);
-        }
-        
-        createThumbnails($sourceDirectory, $thumbDirectory, $thumbWidth);
-        
-        $result['bds'] = get_bds($group);
-        $result['pageTitle'] = htmlspecialchars($group);
-    } elseif ($mode === 'bd') {
-        $result['pages'] = get_pages($group, $bd);
-        $result['pageTitle'] = htmlspecialchars($bd);
     }
     
     return $result;

@@ -47,9 +47,7 @@ function startCarousel() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    Fancybox.bind("[data-fancybox]", {});
-
-    var lo = document.getElementById("loading-overlay");
+    var lo = document.getElementById("index-loading-overlay");
     if (lo) {
         lo.style.opacity = "0";
         setTimeout(function() {
