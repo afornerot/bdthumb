@@ -83,13 +83,8 @@ function toggleReader() {
 
 <nav class="nav px-3">
     <div class="d-flex align-items-center">
-        <?php if ($showHomeLink): ?>
         <a href="index.php"><img src="asset/logo.png" alt="Accueil" class="nav-logo"></a>
         <a href="index.php"><span class="nav-title"><?php echo htmlspecialchars($config['title']); ?></span></a>
-        <?php else: ?>
-        <img src="asset/logo.png" alt="Accueil" class="nav-logo">
-        <span class="nav-title"><?php echo htmlspecialchars($config['title']); ?></span>
-        <?php endif; ?>
     </div>
     <div class="d-flex gap-2">
         <?php if ($showReaderToggle): ?>
@@ -99,4 +94,3 @@ function toggleReader() {
     </div>
 </nav>
 
-<main>

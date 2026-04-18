@@ -13,8 +13,8 @@ $pageTitle = $data['pageTitle'] ?? 'BD';
 $showReaderToggle = false;
 $showHomeLink = true;
 
-require_once __DIR__ . '/template/loading.php';
 require_once __DIR__ . '/template/header.php';
+require_once __DIR__ . '/template/loading.php';
 ?>
 
 <div class="hero-full">

@@ -62,10 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (loadedCount >= totalImages) {
             reader.style.visibility = 'visible';
-            overlay.style.opacity = '0';
-            setTimeout(function() {
-                overlay.style.display = 'none';
-            }, 500);
+            overlay.remove();
         }
     }
 });

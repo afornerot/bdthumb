@@ -365,13 +365,13 @@ h2:first-of-type {
     }
 }
 
-#loading-overlay,
+#index-loading-overlay,
 #reader-loading-overlay {
     position: fixed;
-    top: 0;
+    top: 60px;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 60px);
     background: var(--bs-body-bg, #1a1a2e);
     z-index: 10000;
     display: flex !important;
@@ -381,9 +381,10 @@ h2:first-of-type {
     transition: opacity 0.5s, visibility 0s 0.5s;
     opacity: 1;
     visibility: visible;
+    overflow: auto;
 }
 
-#loading-overlay.fade-out,
+#index-loading-overlay.fade-out,
 #reader-loading-overlay.fade-out {
     opacity: 0;
     visibility: hidden;
