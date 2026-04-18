@@ -2,6 +2,10 @@
 thumb/
 galery/
 
+# Slides
+asset/slide/*.jpg
+asset/slide/*.png
+
 # Local config (overrides config.json)
 asset/local.json
 

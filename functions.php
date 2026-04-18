@@ -293,5 +293,10 @@ function get_slides(): array
     }
     
     natcasesort($slides);
+    
+    if (empty($slides) && file_exists(__DIR__ . '/asset/slide.png')) {
+        return ['../slide.png'];
+    }
+    
     return $slides;
 }

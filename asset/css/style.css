@@ -374,11 +374,19 @@ h2:first-of-type {
     height: 100%;
     background: var(--bs-body-bg, #1a1a2e);
     z-index: 10000;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: opacity 0.5s;
+    transition: opacity 0.5s, visibility 0s 0.5s;
+    opacity: 1;
+    visibility: visible;
+}
+
+#loading-overlay.fade-out,
+#reader-loading-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
 }
 
 .spinner {

@@ -49,10 +49,7 @@ function startCarousel() {
 document.addEventListener('DOMContentLoaded', function() {
     var lo = document.getElementById("index-loading-overlay");
     if (lo) {
-        lo.style.opacity = "0";
-        setTimeout(function() {
-            lo.style.display = "none";
-        }, 500);
+        lo.classList.add('fade-out');
     }
 
     startCarousel();
