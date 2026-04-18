@@ -74,10 +74,12 @@ document.addEventListener('keydown', function(e) {
     const reader = document.querySelector('.reader');
     if (!reader || readerMode !== 'horizontal') return;
     
+    const firstPage = reader.querySelector('.reader-page');
+    const scrollAmount = firstPage ? firstPage.offsetWidth : window.innerWidth * 0.3;
     if (e.key === 'ArrowRight') {
-        reader.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
+        reader.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     } else if (e.key === 'ArrowLeft') {
-        reader.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
+        reader.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     }
 });
 </script>
