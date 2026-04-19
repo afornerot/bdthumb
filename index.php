@@ -73,5 +73,24 @@ require_once __DIR__ . '/template/loading.php';
 
 <script src="asset/js/main.js"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (!sessionStorage.getItem('fromReader')) return;
+    sessionStorage.removeItem('fromReader');
+    
+    const lastRead = localStorage.getItem('lastRead');
+    if (!lastRead) return;
+    
+    try {
+        const data = JSON.parse(lastRead);
+        if (data.group && data.bd) {
+            const card = document.querySelector(`.card a[href*="group=${encodeURIComponent(data.group)}&bd=${encodeURIComponent(data.bd)}"]`);
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    } catch (e) {}
+});</script>
+
 </body>
 </html>

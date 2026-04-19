@@ -34,6 +34,14 @@ require_once __DIR__ . '/template/header.php';
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    <?php if ($group && $bd): ?>
+    sessionStorage.setItem('fromReader', '1');
+    localStorage.setItem('lastRead', JSON.stringify({
+        group: <?php echo json_encode($group); ?>,
+        bd: <?php echo json_encode($bd); ?>
+    }));
+    <?php endif; ?>
+
     const images = document.querySelectorAll('.reader-page img');
     const overlay = document.getElementById('reader-loading-overlay');
     const reader = document.querySelector('.reader');
