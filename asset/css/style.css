@@ -362,6 +362,7 @@ h2:first-of-type {
     [data-reader] .reader-page img {
         width: 100%;
         max-height: none;
+        height: auto;
     }
 }
 
