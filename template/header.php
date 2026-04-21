@@ -62,7 +62,7 @@ document.getElementById('theme-toggle').innerHTML = savedTheme === 'dark' ? '<i 
 
 function toggleTheme() {
     const current = document.documentElement.getAttribute('data-theme');
-    const themes = <?php echo json_encode(array_keys($config['themes'])); ?>;
+const themes = <?php echo json_encode(array_keys($config['themes'] ?? [])); ?>;
     const next = themes.find(t => t !== current) || 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
@@ -79,6 +79,58 @@ function toggleReader() {
     document.getElementById('reader-toggle').innerHTML = next === 'vertical' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-right"></i>';
 }
 <?php endif; ?>
+
+function toggleLens() {
+    const body = document.body;
+    const btn = document.getElementById('lens-toggle');
+    const isActive = body.classList.contains('lens-active');
+    
+    if (isActive) {
+        body.classList.remove('lens-active');
+        btn.classList.remove('active');
+    } else {
+        body.classList.add('lens-active');
+        btn.classList.add('active');
+        initLensMode();
+    }
+}
+
+function initLensMode() {
+    const lensCursor = document.getElementById('lens-cursor');
+    if (!lensCursor) return;
+    
+    const lensWidth = 300;
+    const lensHeight = 200;
+    const lensScale = 0.5;
+    
+    const readerPages = document.querySelectorAll('.reader-page');
+    readerPages.forEach(function(page) {
+        const img = page.querySelector('img');
+        if (!img) return;
+        
+        page.addEventListener('mousemove', function(e) {
+            const rect = img.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const scaleX = (img.naturalWidth / rect.width) * lensScale;
+            const scaleY = (img.naturalHeight / rect.height) * lensScale;
+            
+            const lensX = (x * scaleX) - (lensWidth / 2);
+            const lensY = (y * scaleY) - (lensHeight / 2);
+            
+            lensCursor.style.left = e.clientX + 'px';
+            lensCursor.style.top = e.clientY + 'px';
+            lensCursor.style.backgroundImage = 'url(' + img.src + ')';
+            lensCursor.style.backgroundPosition = '-' + lensX + 'px -' + lensY + 'px';
+            lensCursor.style.backgroundSize = (img.naturalWidth * lensScale) + 'px ' + (img.naturalHeight * lensScale) + 'px';
+        });
+        
+        page.addEventListener('mouseleave', function() {
+            lensCursor.style.backgroundImage = 'none';
+        });
+    });
+}
 </script>
 
 <nav class="nav px-3">
@@ -86,10 +138,16 @@ function toggleReader() {
         <a href="index.php"><img src="asset/logo.png" alt="Accueil" class="nav-logo"></a>
         <a href="index.php"><span class="nav-title"><?php echo htmlspecialchars($config['title']); ?></span></a>
     </div>
-    <div class="d-flex gap-2">
+    <div class="d-flex gap-2 align-items-center">
+        <?php if (!empty($author)): ?>
+        <a href="<?php echo htmlspecialchars($author['url']); ?>" target="_blank" rel="noopener" title="<?php echo htmlspecialchars($author['name']); ?>">
+            <img src="<?php echo htmlspecialchars($author['avatar']); ?>" alt="<?php echo htmlspecialchars($author['name']); ?>" class="rounded-circle" style="width:32px;height:32px;object-fit:cover;">
+        </a>
+        <?php endif; ?>
         <?php if ($showReaderToggle): ?>
         <button class="btn btn-sm" id="reader-toggle" onclick="toggleReader()" title="Mode lecture"><i class="fa-solid fa-down-to-line"></i></button>
         <?php endif; ?>
+        <button class="btn btn-sm" id="lens-toggle" onclick="toggleLens()" title="Mode loupe"><i class="fa-solid fa-magnifying-glass"></i></button>
         <button class="btn btn-sm" id="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
     </div>
 </nav>

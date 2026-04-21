@@ -9,6 +9,7 @@ $config = $data['config'];
 $group = $init['group'];
 $bd = $init['bd'];
 $pageTitle = $data['pageTitle'] ?? 'BD';
+$author = $bd ? get_author_by_name($bd) : null;
 
 $showReaderToggle = true;
 $showHomeLink = true;
@@ -66,11 +67,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function checkLoaded() {
         loadedCount++;
         const percent = Math.round((loadedCount / totalImages) * 100);
-        document.getElementById('loading-text').textContent = 'Chargement ' + percent + '%';
+        const loadingText = document.getElementById('loading-text');
+        if (loadingText) {
+            loadingText.textContent = 'Chargement ' + percent + '%';
+        }
 
-        if (loadedCount >= totalImages) {
+        if (loadedCount >= totalImages && reader) {
             reader.style.visibility = 'visible';
-            overlay.remove();
+            if (overlay) overlay.remove();
         }
     }
 });
@@ -88,6 +92,16 @@ document.addEventListener('keydown', function(e) {
         reader.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     } else if (e.key === 'ArrowLeft') {
         reader.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+});
+</script>
+
+<div id="lens-cursor" class="lens-cursor"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.body.classList.contains('lens-active')) {
+        initLensMode();
     }
 });
 </script>

@@ -300,3 +300,17 @@ function get_slides(): array
     
     return $slides;
 }
+
+function get_author_by_name(string $name): ?array
+{
+    $config = get_config();
+    $authors = $config['authors'] ?? [];
+    
+    foreach ($authors as $author) {
+        if (strtolower($author['name'] ?? '') === strtolower($name)) {
+            return $author;
+        }
+    }
+    
+    return null;
+}
