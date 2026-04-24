@@ -1,4 +1,11 @@
 {
     "title": "Ma Bibliothèque BD",
-    "description": "Ma collection de BD"
+    "description": "Ma collection de BD",
+    "sponsors": [
+        {
+            "logo": "https://example.com/logo.png",
+            "name": "Nom du sponsor",
+            "url": "https://example.com"
+        }
+    ]
 }

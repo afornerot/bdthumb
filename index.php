@@ -71,6 +71,25 @@ require_once __DIR__ . '/template/loading.php';
     </div>
 </main>
 
+<?php if (empty($group) && empty($bd) && !empty($config['sponsors'])): ?>
+<footer class="sponsors-footer">
+    <div class="container">
+        <div class="sponsors-grid">
+            <?php foreach ($config['sponsors'] as $sponsor): ?>
+                <?php if (!empty($sponsor['name'])): ?>
+                <a href="<?php echo htmlspecialchars($sponsor['url'] ?? '#'); ?>" target="_blank" rel="noopener noreferrer" class="sponsor-link">
+                    <?php if (!empty($sponsor['logo'])): ?>
+                    <img src="<?php echo htmlspecialchars($sponsor['logo']); ?>" alt="<?php echo htmlspecialchars($sponsor['name']); ?>">
+                    <?php endif; ?>
+                    <span class="sponsor-name"><?php echo htmlspecialchars($sponsor['name']); ?></span>
+                </a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</footer>
+<?php endif; ?>
+
 <script src="asset/js/main.js"></script>
 
 <script>
