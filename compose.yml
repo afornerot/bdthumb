@@ -7,3 +7,9 @@ services:
       - "8022:80"
     volumes:
       - .:/app/public
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 10.210.0.0/20
